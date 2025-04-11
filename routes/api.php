@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('mahasiswa', App\Http\Controllers\MahasiswaController::class);
 Route::apiResource('dosen', App\Http\Controllers\DosenController::class);
+Route::apiResource('matakuliah', App\Http\Controllers\MataKuliahController::class);
