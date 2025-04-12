@@ -23,4 +23,9 @@ class Matakuliah extends Model
     {
         return $this->belongsTo(Dosen::class);
     }
+
+    public function mahasiswa()
+    {
+        return $this->belongsToMany(Mahasiswa::class, 'mahasiswa_mata_kuliah');
+    }
 }

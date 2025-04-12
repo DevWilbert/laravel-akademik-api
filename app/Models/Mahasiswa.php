@@ -11,10 +11,15 @@ class Mahasiswa extends Model
 
     protected $table = 'mahasiswa';
 
-    protected $fillable = ['user_id','nim','nama','alamat','no_hp'];
+    protected $fillable = ['user_id', 'nim', 'nama', 'alamat', 'no_hp'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function mataKuliah()
+    {
+        return $this->belongsToMany(MataKuliah::class, 'mahasiswa_mata_kuliah');
     }
 }
