@@ -5,11 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\User;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class MahasiswaController extends Controller
 {
+    // public static function middleware()
+    // {
+    //     return [
+    //         new Middleware('auth:sanctum'),
+    //         new Middleware('is_admin'),
+    //     ];
+    // }
 
     public function index()
     {
