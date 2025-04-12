@@ -18,4 +18,18 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::apiResource('matakuliah', App\Http\Controllers\MataKuliahController::class);
 });
 
-Route::apiResource('mahasiswa-mata-kuliah', App\Http\Controllers\MahasiswaMataKuliahController::class);
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+    // Hanya admin yang bisa mengakses index()
+    Route::get('mahasiswa-mata-kuliah', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'index']);
+
+    // Admin juga bisa mengakses show()
+    Route::get('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'show']);
+});
+
+Route::middleware(['auth:sanctum', 'is_mahasiswa'])->group(function () {
+    // Mahasiswa bisa mengakses fungsi selain index()
+    Route::apiResource('mahasiswa-mata-kuliah', App\Http\Controllers\MahasiswaMataKuliahController::class)->except('index');
+
+    // Mahasiswa juga bisa mengakses show()
+    Route::get('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'show']);
+});
