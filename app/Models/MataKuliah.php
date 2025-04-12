@@ -26,6 +26,6 @@ class Matakuliah extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsToMany(Mahasiswa::class, 'mahasiswa_mata_kuliah');
+        return $this->belongsToMany(Mahasiswa::class, 'mahasiswa_mata_kuliah', 'mata_kuliah_id', 'mahasiswa_id');
     }
 }
