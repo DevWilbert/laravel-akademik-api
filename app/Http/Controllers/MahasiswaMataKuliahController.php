@@ -22,6 +22,8 @@ class MahasiswaMataKuliahController extends Controller
                 'nama_mahasiswa' => $mhs->nama,
                 'mata_kuliah' => $mhs->mataKuliah->map(function ($mk) {
                     return [
+                        'id_mata_kuliah' => $mk->id,
+                        'kode_mk' => $mk->kode_matakuliah,
                         'nama_mk' => $mk->nama,
                         'dosen' => $mk->dosen->nama ?? 'Tidak ada dosen', // Jika dosen tidak ada
                     ];
@@ -47,7 +49,7 @@ class MahasiswaMataKuliahController extends Controller
             $mahasiswa = Mahasiswa::findOrFail($validated['mahasiswa_id']);
 
             // Menambahkan mata kuliah baru tanpa menghapus yang lama
-            $mahasiswa->mataKuliah()->sync($validated['mata_kuliah_ids']);
+            $mahasiswa->mataKuliah()->sync($validated['mata_kuliah_ids'], false);
 
             return response()->json([
                 'message' => 'Mata kuliah berhasil ditambahkan untuk mahasiswa',
@@ -76,6 +78,8 @@ class MahasiswaMataKuliahController extends Controller
                 'nama_mahasiswa' => $mahasiswa->nama,
                 'mata_kuliah' => $mahasiswa->mataKuliah->map(function ($mk) {
                     return [
+                        'id_mata_kuliah' => $mk->id,
+                        'kode_mk' => $mk->kode_matakuliah,
                         'nama_mk' => $mk->nama,
                         'dosen' => $mk->dosen->nama ?? 'Tidak ada dosen',
                     ];
