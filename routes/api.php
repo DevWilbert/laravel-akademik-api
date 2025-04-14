@@ -37,18 +37,19 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::delete('matakuliah/{id}', [App\Http\Controllers\MataKuliahController::class, 'destroy']);
 });
 
+// Route untuk ADMIN (akses full: index, show, store, update, destroy)
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
-    // Hanya admin yang bisa mengakses index()
     Route::get('mahasiswa-mata-kuliah', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'index']);
-
-    // Admin juga bisa mengakses show()
     Route::get('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'show']);
+    Route::post('mahasiswa-mata-kuliah', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'store']);
+    Route::put('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'update']);
+    Route::delete('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'destroy']);
 });
 
+// Route untuk MAHASISWA (akses semua kecuali index)
 Route::middleware(['auth:sanctum', 'is_mahasiswa'])->group(function () {
-    // Mahasiswa bisa mengakses fungsi selain index()
-    Route::apiResource('mahasiswa-mata-kuliah', App\Http\Controllers\MahasiswaMataKuliahController::class)->except('index');
-
-    // Mahasiswa juga bisa mengakses show()
     Route::get('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'show']);
+    Route::post('mahasiswa-mata-kuliah', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'store']);
+    Route::put('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'update']);
+    Route::delete('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'destroy']);
 });
