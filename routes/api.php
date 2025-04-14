@@ -37,8 +37,8 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::delete('matakuliah/{id}', [App\Http\Controllers\MataKuliahController::class, 'destroy']);
 });
 
-// Route untuk ADMIN (akses full: index, show, store, update, destroy)
-Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+// Route untuk ADMIN
+Route::middleware(['auth:sanctum', 'is_admin'])->prefix('admin')->group(function () {
     Route::get('mahasiswa-mata-kuliah', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'index']);
     Route::get('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'show']);
     Route::post('mahasiswa-mata-kuliah', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'store']);
@@ -46,8 +46,8 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::delete('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'destroy']);
 });
 
-// Route untuk MAHASISWA (akses semua kecuali index)
-Route::middleware(['auth:sanctum', 'is_mahasiswa'])->group(function () {
+// Route untuk MAHASISWA
+Route::middleware(['auth:sanctum', 'is_mahasiswa'])->prefix('mahasiswa')->group(function () {
     Route::get('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'show']);
     Route::post('mahasiswa-mata-kuliah', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'store']);
     Route::put('mahasiswa-mata-kuliah/{id}', [App\Http\Controllers\MahasiswaMataKuliahController::class, 'update']);
