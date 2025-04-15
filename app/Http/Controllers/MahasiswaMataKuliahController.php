@@ -96,40 +96,6 @@ class MahasiswaMataKuliahController extends Controller
         }
     }
 
-
-    public function update(Request $request, $id)
-    {
-        try {
-            $request->validate([
-                'mata_kuliah_ids' => 'required|array',
-                'mata_kuliah_ids.*' => 'exists:mata_kuliah,id',
-            ]);
-
-            $mahasiswa = Mahasiswa::findOrFail($id);
-
-            // Sinkronisasi relasi mata kuliah
-            $mahasiswa->mataKuliah()->sync($request->mata_kuliah_ids);
-
-            return response()->json([
-                'message' => 'Relasi mata kuliah berhasil diperbarui.',
-                'mahasiswa' => $mahasiswa->load('mataKuliah.dosen')
-            ], 200);
-
-        } catch (ValidationException $e) {
-            return response()->json([
-                'message' => 'Validasi gagal.',
-                'errors' => $e->errors()
-            ], 422);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Terjadi kesalahan.',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-
     public function destroy(Request $request, $id)
     {
         try {
